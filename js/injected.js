@@ -196,6 +196,27 @@ function StravaEnhancementSuite($, options) {
 
   // Methods //////////////////////////////////////////////////////////////////
 
+  $.always(function() {
+    $.setInterval(function() {
+      $('.feed-entry .athlete-name, .profile h3')
+        .onceOnly()
+        .each(function() {
+          var elem = $(this);
+
+          var repl = elem
+            .contents()
+            .get(0)
+            .nodeValue
+            .replace(/https?:[^\s]+/g, '')
+            .replace(/ \([^\)]+[\s\.]CC\s*\)/ig, '')
+            ;
+
+          elem.text(repl);
+        })
+        ;
+    }, 1000);
+  });
+
   // Activity pages
   $.always(function() {
     // Detect whether we are viewing our own activity and to activate the dialog
